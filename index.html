@@ -116,6 +116,8 @@ section{padding-block:56px;border-top:1px solid var(--line)}
 .xp{display:grid;gap:0}
 .job{display:grid;grid-template-columns:200px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid var(--line)}
 .job:first-child{padding-top:0}
+.job.role{border-bottom:0;padding-bottom:0}
+.job.cont{padding-top:14px}
 .job .when{font:500 13px/1.5 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
 .job h3{font-size:22px;font-weight:700;font-stretch:95%}
 .job .co{color:var(--muted);margin:4px 0 12px;font-size:15px}
@@ -182,7 +184,7 @@ footer.page{padding-block:32px 48px;color:var(--muted);font:12px var(--mono)}
       <p class="eyebrow">Analista de QA · Automação de testes</p>
       <h1>Breno Gabriel</h1>
       <p class="role">Automatizo testes Web, Mobile e API para que o time entregue sem medo do regressivo.</p>
-      <div class="meta"><span>Osasco, SP</span><span>Híbrido ou remoto</span><span>Disponível para novas oportunidades</span></div>
+      <div class="meta"><span>Osasco, SP</span><span>Híbrido ou remoto</span></div>
       <div class="cta">
         <a class="btn primary" href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn ghost" href="https://github.com/BrenoSantos07" target="_blank" rel="noopener">GitHub</a>
@@ -194,7 +196,7 @@ footer.page{padding-block:32px 48px;color:var(--muted);font:12px var(--mono)}
       <ol>
         <li><span>regressivo de <em>dias</em> para <em>≤ 1 hora</em> no CI/CD</span></li>
         <li><span>E2E web e mobile com <em>5 frameworks</em></span></li>
-        <li><span>suíte rodando em <em>4 perfis de acesso</em></span></li>
+        <li><span>regressivo automatizado a cada nova demanda</span></li>
         <li><span>dashboard de SLA criado por iniciativa própria</span></li>
         <li><span>fluxos assíncronos com <em>Kafka</em> e <em>Service Bus</em></span></li>
       </ol>
@@ -221,42 +223,28 @@ footer.page{padding-block:32px 48px;color:var(--muted);font:12px var(--mono)}
   </section>
 
   <section id="projetos">
-    <div class="sec-head"><h2>Projetos</h2><span class="eyebrow">Baseados em trabalho real, anonimizados</span></div>
+    <div class="sec-head"><h2>Projetos</h2><span class="eyebrow">Técnicas que aplico no dia a dia</span></div>
 
     <article class="project">
       <div class="top">
         <div>
           <p class="eyebrow">Automação de regressão · Python</p>
-          <h3>Suíte de regressão do portal de recarga</h3>
-          <p class="lede">Regressão do painel administrativo de um portal de gestão de recarga de veículos elétricos. Ela confere se as telas abrem, se as ações de negócio funcionam e se nenhuma chamada de API por trás delas falha.</p>
+          <h3>Suíte de regressão com checagem de API e permissões</h3>
+          <p class="lede">Regressão automatizada para um sistema web com vários perfis de acesso. Ela confere se as telas abrem, se as ações funcionam e se nenhuma chamada de API por trás delas falha.</p>
         </div>
-        <a class="gh" href="https://github.com/BrenoSantos07/ev-portal-qa-automation" target="_blank" rel="noopener">ver no GitHub →</a>
       </div>
       <div class="cols">
         <div>
           <h4>Destaques</h4>
           <ul>
-            <li><b>Checagem de API, não só de UI.</b> A suíte intercepta as respostas de rede durante downloads, relatórios e telas de detalhe, e o teste falha se o backend der erro. Assim ela pegou bugs reais que uma checagem visual deixaria passar.</li>
-            <li><b>Teste de permissão.</b> Para cada perfil, a suíte tenta abrir por URL direta todas as rotas fora do escopo e garante que nenhuma delas abre.</li>
-            <li><b>Um conjunto de testes, 4 perfis.</b> Page Object Model com uma matriz de telas e fluxos para cada perfil de acesso.</li>
+            <li><b>Checagem de API, não só de UI.</b> A suíte intercepta as respostas de API durante os testes de UI, e o teste falha se o backend der erro. Assim ela pega bugs que uma checagem só visual deixaria passar.</li>
+            <li><b>Teste de permissão.</b> Para cada perfil, a suíte tenta abrir por acesso direto via URL as rotas fora do escopo e garante que nenhuma delas abre.</li>
+            <li><b>Um conjunto de testes, vários perfis.</b> Page Object Model reaproveitado para múltiplos perfis de acesso.</li>
             <li>Login com MFA (TOTP) centralizado, sessão isolada por perfil e relatório HTML com evidências a cada execução.</li>
           </ul>
         </div>
         <div>
-          <h4>Matriz de perfis (resumo)</h4>
-          <div class="matrix">
-            <table>
-              <thead><tr><th>Área</th><th>Admin geral</th><th>Operação</th><th>Financeiro</th></tr></thead>
-              <tbody>
-                <tr><td>Home</td><td class="c ok">✓</td><td class="c ok">✓</td><td class="c ok">✓</td></tr>
-                <tr><td>Painel de Controle</td><td class="c ok">✓</td><td class="c ok">✓</td><td class="c no">bloq.</td></tr>
-                <tr><td>Relatórios · Recargas</td><td class="c ok">✓</td><td class="c ok">✓</td><td class="c ok">✓</td></tr>
-                <tr><td>Relatórios · Carteiras</td><td class="c ok">✓</td><td class="c no">bloq.</td><td class="c no">bloq.</td></tr>
-                <tr><td>Faturas · Operações</td><td class="c ok">✓</td><td class="c ok">✓</td><td class="c no">bloq.</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <h4 style="margin-top:22px">Stack</h4>
+          <h4>Stack</h4>
           <div class="tags"><span class="tag">Python</span><span class="tag">Pytest</span><span class="tag">Playwright</span><span class="tag">Page Objects</span><span class="tag">pytest-html</span><span class="tag">TOTP / MFA</span></div>
         </div>
       </div>
@@ -319,18 +307,32 @@ footer.page{padding-block:32px 48px;color:var(--muted);font:12px var(--mono)}
   <section id="experiencia">
     <div class="sec-head"><h2>Experiência</h2><span class="eyebrow">Mais recente primeiro</span></div>
     <div class="xp">
-      <div class="job">
-        <div class="when">dez/2024 – hoje<div class="steps"><span>Estágio</span><span class="now">Analista Jr</span></div></div>
+      <div class="job role">
+        <div class="when">dez/2025 – hoje</div>
         <div>
-          <h3>Analista de QA</h3>
+          <h3>Analista de QA Júnior</h3>
           <p class="co">VOLTTA Energy · Remoto · eMobility e Energy</p>
+        </div>
+      </div>
+      <div class="job role cont">
+        <div class="when">dez/2024 – nov/2025</div>
+        <div>
+          <h3>Estagiário de QA</h3>
+          <p class="co">VOLTTA Energy</p>
+        </div>
+      </div>
+      <div class="job cont">
+        <div class="when"></div>
+        <div>
           <ul>
             <li>Automação E2E web e mobile com Playwright e Robot Framework (Python), Appium (Java), Cypress (JavaScript) e Maestro (YAML).</li>
             <li>Integração da suíte ao pipeline de CI/CD, que reduziu o regressivo de dias para no máximo 1 hora.</li>
+            <li>Execução do regressivo automatizado a cada nova demanda, validando os fluxos do portal, a geração de relatórios em PDF e o retorno das APIs.</li>
             <li>Testes ponta a ponta dos fluxos de recarga, que dependem de Kafka e Azure Service Bus. Mantenho o emulador de carregador OCPP usado nesses testes.</li>
             <li>Testes de API com Postman e Swagger, e validação de dados via SQL entre os sistemas integrados.</li>
             <li>Critérios de aceite e cards de desenvolvimento em BDD/ATDD, suprindo a falta de PO no time.</li>
             <li>Gestão de casos de teste no Qase, rastreio de bugs no Azure DevOps e treinamento de novos QAs.</li>
+            <li>Uso de IA (Claude e ChatGPT) no dia a dia de QA: geração de cenários de teste, manutenção da suíte de regressão, queries SQL complexas, abertura de bugs e incidentes, análise de logs, revisão de código e documentação.</li>
           </ul>
         </div>
       </div>
@@ -362,6 +364,7 @@ footer.page{padding-block:32px 48px;color:var(--muted);font:12px var(--mono)}
       <div><h4>Processo</h4><div class="tags"><span class="tag">BDD</span><span class="tag">ATDD</span><span class="tag">Shift-left</span><span class="tag">Qase</span><span class="tag">Azure DevOps</span><span class="tag">Jira</span></div></div>
       <div><h4>CI/CD e observabilidade</h4><div class="tags"><span class="tag">GitHub Actions</span><span class="tag">Docker</span><span class="tag">Grafana</span><span class="tag">Git</span></div></div>
       <div><h4>Linguagens</h4><div class="tags"><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">Java</span><span class="tag">YAML</span></div></div>
+      <div><h4>IA aplicada a QA</h4><div class="tags"><span class="tag">Claude</span><span class="tag">ChatGPT</span></div></div>
     </div>
   </section>
 
@@ -392,7 +395,7 @@ footer.page{padding-block:32px 48px;color:var(--muted);font:12px var(--mono)}
     <div class="contact">
       <div>
         <h2>Vamos conversar?</h2>
-        <p>Busco vagas de QA com foco em automação, híbridas em São Paulo ou remotas. O jeito mais rápido de falar comigo é pelo LinkedIn.</p>
+        <p>Aberto a conversar sobre QA, automação e qualidade de software. O jeito mais rápido de falar comigo é pelo LinkedIn.</p>
       </div>
       <div class="links">
         <a href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">LinkedIn <span>in/brenogs →</span></a>

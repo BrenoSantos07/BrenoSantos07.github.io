@@ -3,408 +3,596 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Breno Gabriel QA</title>
-<meta name="description" content="Portfólio de Breno Gabriel, Analista de QA com automação de testes Web, Mobile e API.">
+<title>Ficha de Teste · Breno Gabriel</title>
+<meta name="description" content="Portfólio de Breno Gabriel, Analista de QA. Esta página tem 3 bugs plantados de propósito.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
 <style>
 :root{
-  --bg:#F3F6F5; --surface:#FFFFFF; --ink:#14201D; --muted:#56655F; --line:#D6DFDB;
-  --accent:#0B6B6B; --accent-soft:#DDEFEC; --pass:#1D8348; --fail:#B8430F; --code:#EAF0EE;
-  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
-  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --paper:#F4F6F9; --sheet:#FFFFFF; --ink:#2B2F36; --muted:#5A6270; --rule:#D5DBE5; --rule-strong:#AEB7C6;
+  --pen:#1F3A93; --pen-soft:#E4EAF7; --stamp:#C4122F; --stamp-soft:#FBE7EA; --ok:#1E7A46; --ok-soft:#E3F2E9;
+  --todo:#8A5A00; --todo-soft:#FFF4D6;
+  --sans:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --hand:"Caveat","Comic Sans MS",cursive;
+  color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0E1513; --surface:#151F1C; --ink:#E4EDEA; --muted:#94A6A0; --line:#27352F;
-    --accent:#5CC8BC; --accent-soft:#17312D; --pass:#5FCB8A; --fail:#F08A5D; --code:#1A2622;
+    --paper:#0E1524; --sheet:#141E31; --ink:#E2E7EF; --muted:#9DA8BA; --rule:#28354D; --rule-strong:#40506C;
+    --pen:#A5BBF7; --pen-soft:#1C2A47; --stamp:#FF7A8C; --stamp-soft:#3A1C27; --ok:#72D19A; --ok-soft:#173326;
+    --todo:#F2C766; --todo-soft:#33290F;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0E1513; --surface:#151F1C; --ink:#E4EDEA; --muted:#94A6A0; --line:#27352F;
-  --accent:#5CC8BC; --accent-soft:#17312D; --pass:#5FCB8A; --fail:#F08A5D; --code:#1A2622;
+  --paper:#0E1524; --sheet:#141E31; --ink:#E2E7EF; --muted:#9DA8BA; --rule:#28354D; --rule-strong:#40506C;
+  --pen:#A5BBF7; --pen-soft:#1C2A47; --stamp:#FF7A8C; --stamp-soft:#3A1C27; --ok:#72D19A; --ok-soft:#173326;
+  --todo:#F2C766; --todo-soft:#33290F;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}
 img{max-width:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding-inline:20px;padding-block:0}
-.wrap{max-width:1040px;margin:0 auto}
-a{color:var(--accent);text-underline-offset:3px}
-a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+[hidden]{display:none!important}
+a{color:var(--pen);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--pen);outline-offset:3px;border-radius:3px}
+h1,h2,h3,h4{margin:0;line-height:1.2;text-wrap:balance}
+.lbl{font:500 11.5px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .mono{font-family:var(--mono)}
-.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
-/* nav */
-nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:22px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-nav .id{font:600 14px/1 var(--mono)}
-nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
-nav ul a{color:var(--muted);text-decoration:none;font-size:14px}
-nav ul a:hover{color:var(--ink)}
+/* aviso fixo */
+.banner{position:sticky;top:0;z-index:30;background:var(--sheet);border-bottom:1px solid var(--rule-strong);padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px}
+.banner-row{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px 20px;flex-wrap:wrap}
+.banner p{margin:0;font-size:14.5px}
+.count{font:600 13.5px var(--mono);color:var(--pen);white-space:nowrap;font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--sans);padding:10px 16px;border-radius:4px;border:1.5px solid var(--pen);background:var(--pen);color:var(--sheet);cursor:pointer;text-decoration:none}
+.btn.line{background:transparent;color:var(--pen)}
+.btn:disabled{opacity:.55;cursor:progress}
+.done{max-width:1120px;margin:10px auto 0;padding:12px 14px;border:1.5px solid var(--ok);background:var(--ok-soft);border-radius:4px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
+.done p{margin:0;font-weight:600}
+.done .links{display:flex;gap:14px;flex-wrap:wrap;font-size:14.5px}
+.done button{margin-left:auto;background:none;border:0;color:var(--muted);font:13px var(--mono);cursor:pointer;padding:4px}
 
-/* hero */
-.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;padding-block:64px 56px;align-items:end}
-.hero h1{font-size:clamp(44px,7vw,84px);font-weight:800;font-stretch:88%;letter-spacing:-.02em}
-.hero .role{font:500 clamp(18px,2.2vw,22px)/1.4 var(--body);margin-top:18px;max-width:30ch}
-.hero .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;color:var(--muted);font-size:14px}
-.hero .meta span::before{content:"· ";color:var(--line)}
-.hero .meta span:first-child::before{content:""}
-.cta{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:6px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--ink)}
-.btn.primary{background:var(--ink);color:var(--bg)}
-.btn.ghost{color:var(--ink)}
-.btn:hover{transform:translateY(-1px)}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:grid;gap:28px}
 
-/* run summary */
-.run{background:var(--surface);border:1px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13.5px;overflow:hidden}
-.run header{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--muted);font-size:12px}
-.run header b{color:var(--pass);font-weight:500}
-.run ol{list-style:none;margin:0;padding:10px 0}
-.run li{display:grid;grid-template-columns:18px 1fr;gap:10px;padding:7px 16px}
-.run li::before{content:"✓";color:var(--pass);font-weight:600}
-.run li em{font-style:normal;color:var(--muted)}
-.run footer{border-top:1px solid var(--line);padding:12px 16px;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
-.run footer strong{color:var(--ink);font-weight:500}
+/* folha */
+.sheet{background:var(--sheet);border:1px solid var(--rule-strong);border-radius:3px;position:relative}
+.cover{padding:24px 28px 26px}
+.cover-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.cover-grid{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:28px;margin-top:20px}
+.cover h1{font-size:clamp(30px,4.2vw,42px);font-weight:700;letter-spacing:-.01em}
+.cover .role{font-size:18px;color:var(--muted);margin:4px 0 18px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;border-top:1px solid var(--rule)}
+.fields div{padding:10px 14px 10px 0;border-bottom:1px solid var(--rule)}
+.fields div:nth-child(odd){border-right:1px solid var(--rule)}
+.fields div:nth-child(even){padding-left:14px}
+.fields dt{margin-bottom:2px}
+.fields dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.obj{margin:18px 0 0;display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:baseline}
+.obj p{margin:0}
 
-section{padding-block:56px;border-top:1px solid var(--line)}
-.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:32px;flex-wrap:wrap}
-.sec-head h2{font-size:clamp(28px,4vw,40px);font-weight:750;font-stretch:92%}
+.slot{margin:0;border:1.5px dashed var(--rule-strong);border-radius:3px;display:grid;place-items:center;text-align:center;color:var(--muted);font:500 12px/1.5 var(--mono);background:var(--paper)}
+.slot img{display:block;width:100%;height:100%;object-fit:cover;border-radius:2px}
+.slot .ph{padding:12px}
+.slot code{color:var(--ink)}
+.photo{aspect-ratio:3/4;width:100%;max-width:150px}
+.photo:has(img:not([hidden])){background:var(--pen-soft);border:1px solid var(--rule-strong);overflow:hidden}
+.photo img{object-position:center bottom}
 
-/* about */
-.about{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.about p{margin:0 0 14px;max-width:62ch}
-.facts{display:grid;gap:0;align-content:start;border-top:1px solid var(--line)}
-.facts div{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
-.facts dt{color:var(--muted);font-size:13px;padding-top:2px}
-.facts dd{margin:0}
+/* casos de teste */
+.ct{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:24px;align-items:start;scroll-margin-top:90px}
+.ct-main{padding:0 28px 26px;transition:background-color .3s, box-shadow .3s}
+.ct.testing .ct-main{box-shadow:0 0 0 3px var(--pen);background:var(--pen-soft)}
+.ct-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:14px 0;border-bottom:2px solid var(--ink);margin-bottom:20px}
+.ct-head .id{font:600 13px var(--mono);color:var(--pen);border:1.5px solid var(--pen);padding:3px 7px;border-radius:3px}
+.ct-head h2{font-size:clamp(22px,2.6vw,27px);font-weight:700}
+.status{font:500 12px var(--mono);padding:4px 8px;border-radius:3px;border:1px solid var(--rule-strong);color:var(--muted);white-space:nowrap}
+.status[data-s="exec"]{color:var(--pen);border-color:var(--pen)}
+.status[data-s="ok"]{color:var(--ok);border-color:var(--ok)}
+.status[data-s="fail"]{color:var(--stamp);border-color:var(--stamp)}
+.status[data-s="skip"]{color:var(--todo);border-color:var(--todo);border-style:dashed}
+.status[data-s="fix"]{color:var(--ok);border-color:var(--ok);background:var(--ok-soft)}
+.ct-sub{margin:0 0 18px;color:var(--muted);font-size:15px}
 
-/* projects */
-.project{display:grid;grid-template-columns:1fr;gap:24px;padding:32px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
-.project + .project{margin-top:24px}
-.project .top{display:flex;justify-content:space-between;align-items:start;gap:16px;flex-wrap:wrap}
-.project h3{font-size:clamp(24px,3vw,30px);font-weight:750;font-stretch:92%;margin-top:8px}
-.project .lede{font-size:17px;max-width:64ch;margin:10px 0 0;color:var(--ink)}
-.project .cols{display:grid;grid-template-columns:1fr 1fr;gap:32px}
-.project h4{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
-.project ul{margin:0;padding-left:18px}
-.project li{margin-bottom:8px}
-.project li::marker{color:var(--accent)}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{font:500 12.5px/1 var(--mono);padding:6px 9px;border-radius:4px;background:var(--code);color:var(--ink)}
-.gh{font:500 13px/1 var(--mono);white-space:nowrap}
+.stamp{position:absolute;right:22px;top:58px;font:700 34px/1 var(--hand);color:var(--stamp);border:3px solid var(--stamp);padding:4px 12px 2px;border-radius:6px;transform:rotate(-7deg);pointer-events:none;opacity:.88;background:color-mix(in srgb,var(--sheet) 70%,transparent)}
+.stamp.fix{color:var(--ok);border-color:var(--ok);transform:rotate(5deg)}
+.stamp.pop{animation:stamp .35s ease-out}
+@keyframes stamp{from{transform:rotate(-7deg) scale(1.6);opacity:0}to{transform:rotate(-7deg) scale(1);opacity:.88}}
 
-.pipe{overflow-x:auto;border:1px dashed var(--line);border-radius:8px;padding:20px}
-.pipe svg{display:block;min-width:680px;width:100%;height:auto}
-.pipe text{font-family:var(--mono);fill:var(--ink)}
-.pipe .sub{fill:var(--muted)}
-.pipe .box{fill:var(--bg);stroke:var(--line)}
-.pipe .box.hl{stroke:var(--accent);fill:var(--accent-soft)}
-.pipe .arrow{stroke:var(--accent);fill:none;stroke-width:1.5}
-.pipe .head{fill:var(--accent)}
+/* experiência */
+.org{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:10px}
+.org h3{font-size:21px;font-weight:700}
+.org span{color:var(--muted);font-size:15px}
+.roles{list-style:none;margin:0 0 16px;padding:0;border-top:1px solid var(--rule)}
+.roles li{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding:9px 0;border-bottom:1px solid var(--rule)}
+.roles .r{font-weight:600}
+.roles .d{font:500 14px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.roles .desc{flex-basis:100%;color:var(--ink);font-size:15px;margin-top:-2px}
+.bul{margin:0 0 8px;padding-left:20px}
+.bul li{margin-bottom:8px;max-width:72ch}
+.bul li::marker{color:var(--pen)}
+.sub{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:26px 0 8px}
+.bugword{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:text;letter-spacing:inherit}
+.bugword.fixed{background:var(--ok-soft);border-radius:2px;transition:background-color 1.2s}
 
-.matrix{overflow-x:auto}
-.matrix table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
-.matrix th,.matrix td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left}
-.matrix th{font:500 12px/1.2 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-.matrix td.c{text-align:center;font-family:var(--mono)}
-.ok{color:var(--pass)} .no{color:var(--fail)}
+.todo{display:inline;font:500 13px/1.7 var(--mono);color:var(--todo);background:var(--todo-soft);border:1px dashed var(--todo);border-radius:3px;padding:1px 6px}
+p.todo-line{margin:16px 0 0}
 
-/* experience */
-.xp{display:grid;gap:0}
-.job{display:grid;grid-template-columns:200px 1fr;gap:32px;padding:26px 0;border-bottom:1px solid var(--line)}
-.job:first-child{padding-top:0}
-.job.role{border-bottom:0;padding-bottom:0}
-.job.cont{padding-top:14px}
-.job .when{font:500 13px/1.5 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
-.job h3{font-size:22px;font-weight:700;font-stretch:95%}
-.job .co{color:var(--muted);margin:4px 0 12px;font-size:15px}
-.job ul{margin:0;padding-left:18px}
-.job li{margin-bottom:7px;max-width:70ch}
-.job li::marker{color:var(--accent)}
-.job p{margin:0;max-width:70ch}
-.steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-.steps span{font:500 12px/1 var(--mono);padding:5px 8px;border:1px solid var(--line);border-radius:4px;color:var(--muted)}
-.steps span.now{border-color:var(--accent);color:var(--accent)}
+/* projeto */
+.lead{font-size:17px;max-width:66ch;margin:0 0 20px}
+.pipe{list-style:none;margin:0 0 20px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px}
+.pipe li{position:relative;border:1.5px solid var(--rule-strong);border-radius:3px;padding:10px 12px;background:var(--sheet);transition:transform .45s ease}
+.pipe li:not(:last-child)::after{content:"→";position:absolute;right:-24px;top:50%;transform:translateY(-50%);color:var(--pen);font:600 18px var(--mono)}
+.pipe .n{font:600 11.5px var(--mono);color:var(--pen)}
+.pipe b{display:block;font-size:15px;margin-top:2px}
+.pipe small{display:block;color:var(--muted);font-size:13px;line-height:1.4}
+.pipe .b3{z-index:2;cursor:default}
+.pipe .b3 button{all:unset;display:block;cursor:default}
+.pipe .b3 button:focus-visible{outline:2px solid var(--pen);outline-offset:6px}
+/* bug visual: no hover em tela larga, sempre em tela estreita */
+.pipe:hover .b3,.pipe:focus-within .b3{transform:translate(-40px,10px)}
+body.fixed-visual .pipe .b3{transform:none}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 20px;padding:0;list-style:none}
+.facts li{font-size:15px}
+.facts b{font:600 14px var(--mono);color:var(--pen)}
+.shot{aspect-ratio:16/8;width:100%}
+.shot:not(.gif){aspect-ratio:auto;min-height:160px}
+.shot:not(.gif) img{width:100%;height:auto;object-fit:contain}
+.shot.gif{aspect-ratio:auto;min-height:200px;padding:16px}
+.shot.gif img{width:auto;height:auto;max-width:100%;max-height:560px;margin:0 auto;object-fit:contain;border-radius:3px}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:8px}
+.repo{display:inline-block;margin-top:16px;font:500 14px var(--mono);overflow-wrap:anywhere}
 
-/* stack */
-.stack{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 32px}
-.stack h4{font:600 15px/1.3 var(--body);margin:0 0 12px}
+/* formação */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.rows li{display:flex;justify-content:space-between;gap:6px 16px;flex-wrap:wrap;padding:9px 0;border-bottom:1px solid var(--rule);font-size:15px}
+.rows li span:last-child{font:13px var(--mono);color:var(--muted)}
 
-/* edu */
-.edu{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.edu h4{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
-.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.list li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
-.list li span:last-child{color:var(--muted);font:13px/1.6 var(--mono);white-space:nowrap}
+/* contato */
+.contact{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 14px}
+.contact .btn{font-size:15.5px;padding:13px 22px}
+.addr{font:14px var(--mono);color:var(--muted);margin:0}
+.addr span{user-select:all;color:var(--ink)}
 
-/* contact */
-.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:end}
-.contact h2{font-size:clamp(32px,5vw,52px);font-weight:800;font-stretch:88%}
-.contact p{color:var(--muted);max-width:48ch}
-.links{display:grid;gap:0;border-top:1px solid var(--line)}
-.links a{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:500}
-.links a span{font:13px var(--mono);color:var(--muted)}
-.links a:hover span{color:var(--accent)}
-footer.page{padding-block:32px 48px;color:var(--muted);font:12px var(--mono)}
+/* bug report */
+.margin{display:grid;gap:14px}
+.report{background:var(--sheet);border:1.5px solid var(--stamp);border-top-width:5px;border-radius:3px;padding:14px 16px;font-size:14px;line-height:1.5;transform:rotate(.6deg);box-shadow:0 2px 0 var(--rule)}
+.report.fix{border-color:var(--ok)}
+.report.new{animation:pin .3s ease-out}
+@keyframes pin{from{transform:translateY(-8px) rotate(.6deg);opacity:0}to{transform:rotate(.6deg);opacity:1}}
+.report header{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.report .rid{font:600 12.5px var(--mono);color:var(--stamp)}
+.report.fix .rid{color:var(--ok)}
+.report .sev{font:500 12px var(--mono);color:var(--muted)}
+.report h3{font-size:15px;font-weight:700;margin-bottom:8px}
+.report dl{margin:0}
+.report dt{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-top:8px}
+.report dd{margin:2px 0 0}
+.report ol{margin:0;padding-left:18px}
+.report .note{font:700 21px/1.1 var(--hand);color:var(--stamp);margin:10px 0 0}
+.report.fix .note{color:var(--ok)}
+.report .go{display:inline-block;margin-top:6px;font-weight:600}
 
-@media (max-width:820px){
-  .hero,.about,.project .cols,.edu,.contact{grid-template-columns:1fr}
-  .hero{gap:32px;padding-block:40px}
-  .stack{grid-template-columns:1fr 1fr}
-  .job{grid-template-columns:1fr;gap:8px}
-  .project{padding:22px}
+/* log do regressivo */
+.log{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;width:min(430px,calc(100vw - 32px));max-height:min(62vh,560px);display:flex;flex-direction:column;background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.log header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--rule)}
+.log header b{font:600 13px var(--mono)}
+.log header button{background:none;border:0;color:var(--muted);font:13px var(--mono);cursor:pointer;padding:4px}
+.lines{list-style:none;margin:0;padding:10px 14px;overflow:auto;font:13px/1.55 var(--mono);flex:1}
+.lines li{display:grid;grid-template-columns:18px 1fr auto;gap:8px;padding:2px 0}
+.lines .m{text-align:center}
+.lines .ok .m{color:var(--ok)} .lines .fail .m,.lines .fail .t{color:var(--stamp)} .lines .skip .m{color:var(--muted)} .lines .run .m{color:var(--pen)}
+.lines .t{color:var(--muted);font-variant-numeric:tabular-nums}
+.lines .info{grid-template-columns:1fr;color:var(--muted)}
+.log footer{padding:12px 14px;border-top:1px solid var(--rule);display:grid;gap:10px;font:13px/1.5 var(--mono)}
+.log footer:empty{display:none}
+
+.before{padding-inline:28px;padding-block:4px 8px;display:grid;gap:10px;max-width:880px}
+.before h2{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.before p{margin:0;font-size:15px;color:var(--muted);max-width:74ch}
+.before .line{display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline}
+.before .line b{font-weight:600;color:var(--ink)}
+.before .line .d{font:13px var(--mono);font-variant-numeric:tabular-nums}
+@media (max-width:600px){.before{padding-inline:4px}}
+footer.page{text-align:center;font:12px var(--mono);color:var(--muted);padding-bottom:24px}
+
+@media (max-width:900px){
+  .ct{grid-template-columns:1fr;gap:12px}
+  .margin:empty{display:none}
 }
-@media (max-width:520px){
-  .stack{grid-template-columns:1fr}
-  nav ul{gap:14px}
-  .facts div{grid-template-columns:1fr;gap:2px}
-  .list li{flex-direction:column;gap:2px}
+@media (max-width:600px){
+  .cover{padding:18px 16px 20px}
+  .ct-main{padding:0 16px 20px}
+  .cover-grid{grid-template-columns:1fr;gap:18px}
+  .photo{max-width:120px;grid-row:1}
+  .fields{grid-template-columns:1fr}
+  .fields div:nth-child(odd){border-right:0}
+  .fields div:nth-child(even){padding-left:0}
+  .obj{grid-template-columns:1fr;gap:4px}
+  .ct-head{grid-template-columns:auto 1fr;gap:8px 12px}
+  .ct-head .status{grid-column:1/-1;justify-self:start}
+  .stamp{top:auto;bottom:14px;right:14px;font-size:28px}
+  .pipe{grid-template-columns:1fr;gap:26px}
+  .pipe li:not(:last-child)::after{content:"↓";right:auto;left:18px;top:auto;bottom:-24px;transform:none}
+  .pipe .b3,.pipe:hover .b3,.pipe:focus-within .b3{transform:translate(12px,-38px)}
+  body.fixed-visual .pipe .b3{transform:none}
+  .two{grid-template-columns:1fr}
+  .log{right:0;left:0;bottom:0;width:100%;max-height:48vh;border-radius:6px 6px 0 0;border-bottom:0;padding-bottom:env(safe-area-inset-bottom,0px)}
 }
-@media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <nav>
-    <span class="id">breno.gabriel / qa</span>
-    <ul>
-      <li><a href="#projetos">Projetos</a></li>
-      <li><a href="#experiencia">Experiência</a></li>
-      <li><a href="#stack">Stack</a></li>
-      <li><a href="#contato">Contato</a></li>
-    </ul>
-  </nav>
+<div class="banner" role="region" aria-label="Aviso sobre os bugs desta página">
+  <div class="banner-row">
+    <p>Esta página tem 3 bugs plantados de propósito. <span class="count" id="count" aria-live="polite">Encontrados: 0/3</span></p>
+    <button class="btn" id="run" type="button">Rodar regressivo</button>
+  </div>
+  <div class="done" id="done" role="status" hidden>
+    <p>É isso que eu faço todo dia, só que em produto de verdade.</p>
+    <span class="links"><a href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/BrenoSantos07" target="_blank" rel="noopener">GitHub</a></span>
+    <button type="button" id="closeDone">fechar</button>
+  </div>
+</div>
 
-  <header class="hero">
-    <div>
-      <p class="eyebrow">Analista de QA · Automação de testes</p>
-      <h1>Breno Gabriel</h1>
-      <p class="role">Automatizo testes Web, Mobile e API para que o time entregue sem medo do regressivo.</p>
-      <div class="meta"><span>Osasco, SP</span><span>Híbrido ou remoto</span></div>
-      <div class="cta">
-        <a class="btn primary" href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn ghost" href="https://github.com/BrenoSantos07" target="_blank" rel="noopener">GitHub</a>
+<main class="wrap">
+
+  <header class="sheet cover" id="ct0" data-ct="CT-00">
+    <div class="cover-top"><span class="lbl">Ficha de teste · Portfólio</span><span class="lbl">Rev. 09/2026 · 5 casos</span></div>
+    <div class="cover-grid">
+      <div>
+        <h1>Breno Gabriel</h1>
+        <p class="role">Analista de QA</p>
+        <dl class="fields">
+          <div><dt class="lbl">Empresa</dt><dd>Voltta Energy · remoto</dd></div>
+          <div><dt class="lbl">Base</dt><dd>Osasco/SP</dd></div>
+          <div><dt class="lbl">Foco</dt><dd>Automação E2E web, mobile e API</dd></div>
+          <div><dt class="lbl">Idioma</dt><dd>Inglês intermediário</dd></div>
+          <div><dt class="lbl">LinkedIn</dt><dd><a href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">linkedin.com/in/brenogs</a></dd></div>
+          <div><dt class="lbl">GitHub</dt><dd><a href="https://github.com/BrenoSantos07" target="_blank" rel="noopener">github.com/BrenoSantos07</a></dd></div>
+        </dl>
       </div>
+      <figure class="slot photo">
+        <img src="foto.png" alt="Foto de Breno Gabriel" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+        <div class="ph" hidden>FOTO 3×4<br>anexar<br><code>foto.png</code></div>
+      </figure>
     </div>
-
-    <aside class="run" aria-label="Resumo em formato de execução de testes">
-      <header><span>$ pytest carreira/</span><b>PASSED</b></header>
-      <ol>
-        <li><span>regressivo de <em>dias</em> para <em>≤ 1 hora</em> no CI/CD</span></li>
-        <li><span>E2E web e mobile com <em>5 frameworks</em></span></li>
-        <li><span>regressivo automatizado a cada nova demanda</span></li>
-        <li><span>dashboard de SLA criado por iniciativa própria</span></li>
-        <li><span>fluxos assíncronos com <em>Kafka</em> e <em>Service Bus</em></span></li>
-      </ol>
-      <footer><strong>5 passed</strong> · 0 failed · QA desde dez/2024</footer>
-    </aside>
+    <div class="obj">
+      <span class="lbl">Objetivo</span>
+      <p>Esta ficha é meu portfólio. Escondi 3 bugs nela. Tente achar antes de rodar o regressivo.</p>
+      <span class="lbl">Como eu testo</span>
+      <p>Não confio só no que a tela mostra. Quando algo quebra, abro a API no Postman e consulto o banco pra descobrir onde o problema começou de verdade. Bug bom de reportar é o que já chega com a causa.</p>
+    </div>
   </header>
 
-  <section id="sobre">
-    <div class="sec-head"><h2>Sobre</h2><span class="eyebrow">Shift-left</span></div>
-    <div class="about">
-      <div>
-        <p>Sou Analista de QA na VOLTTA Energy, nos times de eMobility e Energy. Testo um produto de recarga de veículos elétricos com backend Java/Spring Boot, front-end Angular e apps mobile, em uma arquitetura de microsserviços orientada a eventos.</p>
-        <p>Meu foco é automação ponta a ponta e qualidade desde o começo: escrevo critérios de aceite em BDD/ATDD, valido integrações assíncronas e coloco a suíte no pipeline para que o time tenha resposta rápida a cada entrega.</p>
-        <p>Cheguei à tecnologia vindo de logística e controle de acesso. Nessa época criei um sistema web de cadastro de moradores e veículos para um condomínio com mais de 1.000 famílias, e foi aí que decidi mudar de carreira.</p>
-      </div>
-      <dl class="facts">
-        <div><dt>Cargo atual</dt><dd>Analista de QA Jr · VOLTTA Energy</dd></div>
-        <div><dt>Domínio</dt><dd>Recarga de veículos elétricos (OCPP), energia</dd></div>
-        <div><dt>Arquitetura</dt><dd>Microsserviços, mensageria assíncrona</dd></div>
-        <div><dt>Formação</dt><dd>ADS · Pós em Qualidade e Testes de Software</dd></div>
-        <div><dt>Localização</dt><dd>Osasco, SP</dd></div>
-      </dl>
+  <section class="ct" id="ct1" data-ct="CT-01" aria-labelledby="h-ct1">
+    <div class="ct-main sheet">
+      <div class="ct-head"><span class="id">CT-01</span><h2 id="h-ct1">Experiência</h2><span class="status" data-s="none">não executado</span></div>
+      <div class="org"><h3>Voltta Energy</h3><span>eMobility e Energy · remoto</span></div>
+      <ul class="roles">
+        <li><span class="r">Analista de QA Júnior</span><span class="d">dez/2025 – hoje</span></li>
+        <li><span class="r">Estagiário de QA</span><span class="d">dez/2024 – nov/2025</span></li>
+      </ul>
+      <ul class="bul">
+        <li>Automatizo testes E2E web e mobile com Playwright e Robot Framework (Python), Appium (Java), Cypress (JS) e Maestro (YAML).</li>
+        <li><button class="bugword" type="button" id="typo" aria-label="Intregei">Intregei</button> o regressivo ao CI/CD. Ele caiu de dias para no máximo 1 hora e roda a cada nova demanda, validando fluxos do portal, geração de PDF e retorno das APIs.</li>
+        <li>Testo E2E os fluxos de recarga que passam por Kafka e Azure Service Bus. O emulador de carregador OCPP fica comigo.</li>
+        <li>Testo API com Postman e Swagger e valido dados via SQL.</li>
+        <li>Escrevo os critérios de aceite em BDD/ATDD, porque o time não tem PO. Uso Qase e Azure DevOps e treino os QAs novos.</li>
+        <li>Uso IA (Claude e ChatGPT) para cenários de teste, manutenção da suíte, queries SQL, bugs e incidentes, análise de logs e revisão de código.</li>
+      </ul>
     </div>
+    <aside class="margin" aria-label="Bug reports do CT-01"></aside>
   </section>
 
-  <section id="projetos">
-    <div class="sec-head"><h2>Projetos</h2><span class="eyebrow">Técnicas que aplico no dia a dia</span></div>
-
-    <article class="project">
-      <div class="top">
-        <div>
-          <p class="eyebrow">Automação de regressão · Python</p>
-          <h3>Suíte de regressão com checagem de API e permissões</h3>
-          <p class="lede">Regressão automatizada para um sistema web com vários perfis de acesso. Ela confere se as telas abrem, se as ações funcionam e se nenhuma chamada de API por trás delas falha.</p>
+  <section class="ct" id="ct2" data-ct="CT-02" aria-labelledby="h-ct2">
+    <div class="ct-main sheet">
+      <div class="ct-head"><span class="id">CT-02</span><h2 id="h-ct2">Projeto: dashboard de qualidade</h2><span class="status" data-s="none">não executado</span></div>
+      <p class="lead">Criei por iniciativa própria. Ele puxa bugs e incidentes do board e mostra no Grafana quem está dentro do SLA.</p>
+      <ul class="facts">
+        <li><b>SLA</b> 2 dias para incidente</li>
+        <li><b>SLA</b> 5 dias para bug</li>
+      </ul>
+      <ol class="pipe" aria-label="Fluxo dos dados">
+        <li><span class="n">01</span><b>Azure Boards</b><small>origem dos cards</small></li>
+        <li><span class="n">02</span><b>Python</b><small>no GitHub Actions</small></li>
+        <li class="b3"><button type="button" id="visual" aria-label="Etapa 03: PostgreSQL, no Neon"><span class="n">03</span><b>PostgreSQL</b><small>no Neon</small></button></li>
+        <li><span class="n">04</span><b>Grafana</b><small>painel e SLA</small></li>
+      </ol>
+      <figure style="margin:0">
+        <div class="slot shot">
+          <img src="grafana.png" alt="Print do dashboard no Grafana com dados de exemplo" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+          <div class="ph" hidden>PRINT DO GRAFANA<br>dados de exemplo<br>anexar <code>grafana.png</code></div>
         </div>
-      </div>
-      <div class="cols">
+        <figcaption>Dashboard com dados de exemplo.</figcaption>
+      </figure>
+      <p class="todo-line">Antes, pra saber o que estava fora do SLA, alguém tinha que abrir o board e contar card por card. Agora a gerência abre o painel e vê na hora o que está atrasado e em qual área.</p>
+      <a class="repo" href="https://github.com/BrenoSantos07/dashboard-grafana-analise-qualidade" target="_blank" rel="noopener">github.com/BrenoSantos07/dashboard-grafana-analise-qualidade</a>
+    </div>
+    <aside class="margin" aria-label="Bug reports do CT-02"></aside>
+  </section>
+
+  <section class="ct" id="ct3" data-ct="CT-03" aria-labelledby="h-ct3">
+    <div class="ct-main sheet">
+      <div class="ct-head"><span class="id">CT-03</span><h2 id="h-ct3">Evidência: suíte rodando</h2><span class="status" data-s="none">não executado</span></div>
+      <figure style="margin:0">
+        <div class="slot shot gif">
+          <img src="suite.gif" alt="GIF curto da suíte de regressão rodando" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+          <div class="ph" hidden>GIF DA SUÍTE RODANDO<br>anexar <code>suite.gif</code></div>
+        </div>
+        <figcaption>Suíte de login, login negativo, sessão e logout rodando no VS Code: 17 de 17 passando em cerca de 80 segundos.</figcaption>
+      </figure>
+    </div>
+    <aside class="margin" aria-label="Bug reports do CT-03"></aside>
+  </section>
+
+  <section class="ct" id="ct4" data-ct="CT-04" aria-labelledby="h-ct4">
+    <div class="ct-main sheet">
+      <div class="ct-head"><span class="id">CT-04</span><h2 id="h-ct4">Formação</h2><span class="status" data-s="none">não executado</span></div>
+      <div class="two">
         <div>
-          <h4>Destaques</h4>
-          <ul>
-            <li><b>Checagem de API, não só de UI.</b> A suíte intercepta as respostas de API durante os testes de UI, e o teste falha se o backend der erro. Assim ela pega bugs que uma checagem só visual deixaria passar.</li>
-            <li><b>Teste de permissão.</b> Para cada perfil, a suíte tenta abrir por acesso direto via URL as rotas fora do escopo e garante que nenhuma delas abre.</li>
-            <li><b>Um conjunto de testes, vários perfis.</b> Page Object Model reaproveitado para múltiplos perfis de acesso.</li>
-            <li>Login com MFA (TOTP) centralizado, sessão isolada por perfil e relatório HTML com evidências a cada execução.</li>
+          <h4 class="sub" style="margin-top:0">Acadêmica</h4>
+          <ul class="rows">
+            <li><span>Pós em Engenharia de Software, ênfase em Qualidade e Testes · Anhanguera</span><span>2026 · em curso</span></li>
+            <li><span>Análise e Desenvolvimento de Sistemas · Anhanguera</span><span>2022–2025</span></li>
           </ul>
         </div>
         <div>
-          <h4>Stack</h4>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Pytest</span><span class="tag">Playwright</span><span class="tag">Page Objects</span><span class="tag">pytest-html</span><span class="tag">TOTP / MFA</span></div>
-        </div>
-      </div>
-    </article>
-
-    <article class="project">
-      <div class="top">
-        <div>
-          <p class="eyebrow">Métricas de qualidade · Data pipeline</p>
-          <h3>Dashboard de qualidade no Grafana</h3>
-          <p class="lede">Criei por iniciativa própria um painel de bugs, incidentes e deploys acompanhados contra os SLAs da empresa: 2 dias para incidentes e 5 para bugs. Os dados saem do Azure Boards sem trabalho manual além de mover o card. Apresentei o projeto à gerência comercial.</p>
-        </div>
-        <a class="gh" href="https://github.com/BrenoSantos07/dashboard-grafana-analise-qualidade" target="_blank" rel="noopener">ver no GitHub →</a>
-      </div>
-      <div class="pipe" role="img" aria-label="Fluxo: Azure Boards, GitHub Actions com script Python, PostgreSQL e Grafana">
-        <svg viewBox="0 0 900 120" xmlns="http://www.w3.org/2000/svg">
-          <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="head" d="M0,0 L10,5 L0,10 z"/></marker></defs>
-          <rect class="box" x="4" y="24" width="170" height="72" rx="6"/>
-          <text x="89" y="55" text-anchor="middle" font-size="15">Azure Boards</text>
-          <text class="sub" x="89" y="77" text-anchor="middle" font-size="11">WIQL · somente leitura</text>
-          <rect class="box hl" x="238" y="24" width="190" height="72" rx="6"/>
-          <text x="333" y="55" text-anchor="middle" font-size="15">GitHub Actions</text>
-          <text class="sub" x="333" y="77" text-anchor="middle" font-size="11">Python · cron ou manual</text>
-          <rect class="box" x="492" y="24" width="170" height="72" rx="6"/>
-          <text x="577" y="55" text-anchor="middle" font-size="15">PostgreSQL</text>
-          <text class="sub" x="577" y="77" text-anchor="middle" font-size="11">Neon · upsert idempotente</text>
-          <rect class="box" x="726" y="24" width="170" height="72" rx="6"/>
-          <text x="811" y="55" text-anchor="middle" font-size="15">Grafana</text>
-          <text class="sub" x="811" y="77" text-anchor="middle" font-size="11">KPIs · SLA · deploys</text>
-          <line class="arrow" x1="176" y1="60" x2="234" y2="60" marker-end="url(#ah)"/>
-          <line class="arrow" x1="430" y1="60" x2="488" y2="60" marker-end="url(#ah)"/>
-          <line class="arrow" x1="664" y1="60" x2="722" y2="60" marker-end="url(#ah)"/>
-        </svg>
-      </div>
-      <div class="cols">
-        <div>
-          <h4>Como funciona</h4>
-          <ul>
-            <li>Uma consulta WIQL busca só os cards com as tags BUG, INCIDENTE ou MELHORIA da área monitorada.</li>
-            <li>O status vem da coluna do board. Quando o card entra em homologação, conta como fechado. Quando entra em produção, o deploy é registrado automaticamente.</li>
-            <li>O upsert idempotente mantém o banco igual ao estado atual do board e remove os itens que saíram do filtro.</li>
-            <li>O token de acesso é somente leitura e fica nos GitHub Secrets, nunca no código.</li>
-          </ul>
-        </div>
-        <div>
-          <h4>Painéis</h4>
-          <ul>
-            <li>Bugs, incidentes e melhorias abertos</li>
-            <li>Tempo médio até fechar</li>
-            <li>Novos cards por mês e distribuição por tipo</li>
-            <li>Cards fechados e deploys realizados</li>
-          </ul>
-          <h4 style="margin-top:22px">Stack</h4>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Azure DevOps API</span><span class="tag">PostgreSQL</span><span class="tag">Grafana</span><span class="tag">GitHub Actions</span><span class="tag">Docker</span></div>
-        </div>
-      </div>
-    </article>
-  </section>
-
-  <section id="experiencia">
-    <div class="sec-head"><h2>Experiência</h2><span class="eyebrow">Mais recente primeiro</span></div>
-    <div class="xp">
-      <div class="job role">
-        <div class="when">dez/2025 – hoje</div>
-        <div>
-          <h3>Analista de QA Júnior</h3>
-          <p class="co">VOLTTA Energy · Remoto · eMobility e Energy</p>
-        </div>
-      </div>
-      <div class="job role cont">
-        <div class="when">dez/2024 – nov/2025</div>
-        <div>
-          <h3>Estagiário de QA</h3>
-          <p class="co">VOLTTA Energy</p>
-        </div>
-      </div>
-      <div class="job cont">
-        <div class="when"></div>
-        <div>
-          <ul>
-            <li>Automação E2E web e mobile com Playwright e Robot Framework (Python), Appium (Java), Cypress (JavaScript) e Maestro (YAML).</li>
-            <li>Integração da suíte ao pipeline de CI/CD, que reduziu o regressivo de dias para no máximo 1 hora.</li>
-            <li>Execução do regressivo automatizado a cada nova demanda, validando os fluxos do portal, a geração de relatórios em PDF e o retorno das APIs.</li>
-            <li>Testes ponta a ponta dos fluxos de recarga, que dependem de Kafka e Azure Service Bus. Mantenho o emulador de carregador OCPP usado nesses testes.</li>
-            <li>Testes de API com Postman e Swagger, e validação de dados via SQL entre os sistemas integrados.</li>
-            <li>Critérios de aceite e cards de desenvolvimento em BDD/ATDD, suprindo a falta de PO no time.</li>
-            <li>Gestão de casos de teste no Qase, rastreio de bugs no Azure DevOps e treinamento de novos QAs.</li>
-            <li>Uso de IA (Claude e ChatGPT) no dia a dia de QA: geração de cenários de teste, manutenção da suíte de regressão, queries SQL complexas, abertura de bugs e incidentes, análise de logs, revisão de código e documentação.</li>
+          <h4 class="sub" style="margin-top:0">Certificados</h4>
+          <ul class="rows">
+            <li><span>QA Automation</span><span>Qazando</span></li>
+            <li><span>DP-100 Challenge</span><span>DIO</span></li>
+            <li><span>AWS Educate Cloud 101</span><span>AWS</span></li>
+            <li><span>JavaScript Full Stack</span><span>OneBitCode</span></li>
+            <li><span>Banco de Dados</span><span>Fundação Bradesco</span></li>
           </ul>
         </div>
       </div>
-      <div class="job">
-        <div class="when">set/2022 – dez/2025</div>
-        <div>
-          <h3>Controlador de Acesso</h3>
-          <p class="co">Mrs Fenix · Osasco</p>
-          <p>Desenvolvi e implantei um sistema web de cadastro de moradores, visitantes e veículos (placa, marca e modelo) para um condomínio com mais de 1.000 famílias, e treinei a equipe para usar o sistema.</p>
-        </div>
-      </div>
-      <div class="job">
-        <div class="when">out/2021 – set/2022</div>
-        <div>
-          <h3>Auxiliar de Carga e Descarga</h3>
-          <p class="co">Pão de Açúcar · São Paulo</p>
-          <p>Conferência de mercadorias com FIFO/FEFO, 5S e controle de inventário em ERP. Foi aí que aprendi o valor da rastreabilidade, que hoje uso no QA.</p>
-        </div>
-      </div>
     </div>
+    <aside class="margin" aria-label="Bug reports do CT-04"></aside>
   </section>
 
-  <section id="stack">
-    <div class="sec-head"><h2>Stack</h2><span class="eyebrow">Usada no dia a dia</span></div>
-    <div class="stack">
-      <div><h4>Automação Web e Mobile</h4><div class="tags"><span class="tag">Playwright</span><span class="tag">Cypress</span><span class="tag">Robot Framework</span><span class="tag">Appium</span><span class="tag">Maestro</span><span class="tag">Pytest</span></div></div>
-      <div><h4>API e dados</h4><div class="tags"><span class="tag">Postman</span><span class="tag">Swagger</span><span class="tag">SQL</span><span class="tag">PostgreSQL</span></div></div>
-      <div><h4>Mensageria e arquitetura</h4><div class="tags"><span class="tag">Apache Kafka</span><span class="tag">Azure Service Bus</span><span class="tag">Microsserviços</span><span class="tag">OCPP</span></div></div>
-      <div><h4>Processo</h4><div class="tags"><span class="tag">BDD</span><span class="tag">ATDD</span><span class="tag">Shift-left</span><span class="tag">Qase</span><span class="tag">Azure DevOps</span><span class="tag">Jira</span></div></div>
-      <div><h4>CI/CD e observabilidade</h4><div class="tags"><span class="tag">GitHub Actions</span><span class="tag">Docker</span><span class="tag">Grafana</span><span class="tag">Git</span></div></div>
-      <div><h4>Linguagens</h4><div class="tags"><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">Java</span><span class="tag">YAML</span></div></div>
-      <div><h4>IA aplicada a QA</h4><div class="tags"><span class="tag">Claude</span><span class="tag">ChatGPT</span></div></div>
+  <section class="ct" id="ct5" data-ct="CT-05" aria-labelledby="h-ct5">
+    <div class="ct-main sheet">
+      <div class="ct-head"><span class="id">CT-05</span><h2 id="h-ct5">Contato</h2><span class="status" data-s="none">não executado</span></div>
+      <p class="ct-sub">O LinkedIn é o jeito mais rápido de falar comigo.</p>
+      <div class="contact">
+        <a class="btn" id="li" href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">Abrir LinkedIn</a>
+        <a class="btn line" href="https://github.com/BrenoSantos07" target="_blank" rel="noopener">Abrir GitHub</a>
+      </div>
+      <p class="addr">linkedin.com/in/<span>brenogs</span> · github.com/<span>BrenoSantos07</span></p>
     </div>
+    <aside class="margin" aria-label="Bug reports do CT-05"></aside>
   </section>
 
-  <section id="formacao">
-    <div class="sec-head"><h2>Formação</h2><span class="eyebrow">Estudo contínuo</span></div>
-    <div class="edu">
-      <div>
-        <h4>Acadêmica</h4>
-        <ul class="list">
-          <li><span>Pós em Eng. de Software: Qualidade e Testes · Anhanguera</span><span>em curso</span></li>
-          <li><span>Análise e Desenvolvimento de Sistemas · Anhanguera</span><span>2022–2025</span></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Certificados</h4>
-        <ul class="list">
-          <li><span>QA Automation · Qazando</span><span>2025</span></li>
-          <li><span>Microsoft Certification Challenge DP-100 · DIO</span><span>2025</span></li>
-          <li><span>AWS Educate: Introduction to Cloud 101</span><span>2025</span></li>
-          <li><span>JavaScript Full Stack · OneBitCode</span><span>200h+</span></li>
-          <li><span>Banco de Dados · Fundação Bradesco</span><span>SQL</span></li>
-        </ul>
-      </div>
-    </div>
+  <section class="before" aria-labelledby="h-before">
+    <h2 id="h-before">Antes de QA</h2>
+    <p>Trabalhei com carga e descarga e depois com controle de acesso num condomínio de mais de 1.000 famílias. Lá eu criei um sistema web pra cadastrar moradores e veículos. Vi aquilo funcionando no dia a dia e decidi que queria trabalhar com software.</p>
+    <p class="line"><b>Controlador de Acesso · Mrs Fenix</b><span class="d">set/2022 – dez/2025</span></p>
+    <p class="line"><b>Auxiliar de Carga e Descarga · Pão de Açúcar</b><span class="d">out/2021 – set/2022</span></p>
   </section>
 
-  <section id="contato">
-    <div class="contact">
-      <div>
-        <h2>Vamos conversar?</h2>
-        <p>Aberto a conversar sobre QA, automação e qualidade de software. O jeito mais rápido de falar comigo é pelo LinkedIn.</p>
-      </div>
-      <div class="links">
-        <a href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">LinkedIn <span>in/brenogs →</span></a>
-        <a href="https://github.com/BrenoSantos07" target="_blank" rel="noopener">GitHub <span>BrenoSantos07 →</span></a>
-      </div>
-    </div>
-  </section>
+  <footer class="page">Ficha preenchida por Breno Gabriel · 2026</footer>
+</main>
 
-  <footer class="page">© 2026 Breno Gabriel</footer>
-</div>
+<section class="log" id="log" aria-label="Execução do regressivo" hidden>
+  <header><b>regressivo · portfolio</b><button type="button" id="closeLog">fechar ✕</button></header>
+  <ol class="lines" id="lines" aria-live="polite"></ol>
+  <footer id="logfoot"></footer>
+</section>
+
+<script>
+(function(){
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => document.querySelector(s);
+
+  const BUGS = {
+    contact:{ id:'BUG-01', ct:'ct5', sev:'alta', title:'Botão "Abrir LinkedIn" não responde no primeiro clique',
+      steps:['Abrir a página','Ir até CT-05 Contato','Clicar uma vez em "Abrir LinkedIn"'],
+      actual:'Nada acontece. Só o segundo clique responde.', expected:'Abrir o LinkedIn no primeiro clique.',
+      why:'bloqueia o contato' },
+    typo:{ id:'BUG-02', ct:'ct1', sev:'baixa', title:'Erro de digitação em "Intregei" na experiência',
+      steps:['Abrir CT-01 Experiência','Ler o segundo item da Voltta'],
+      actual:'Está escrito "Intregei".', expected:'"Integrei".', why:'cosmético, mas passa descuido' },
+    visual:{ id:'BUG-03', ct:'ct2', sev:'média', title:'Etapa 03 do fluxo sai do lugar e cobre a etapa anterior',
+      steps:['Abrir CT-02 Projeto','Em tela de até 600px, olhar o fluxo. Em tela larga, passar o mouse sobre ele'],
+      actual:'A caixa "PostgreSQL" desloca e fica por cima da seta e da etapa anterior.',
+      expected:'As 4 etapas alinhadas, sem sobreposição.', why:'atrapalha a leitura do fluxo' }
+  };
+  const state = { found:{}, fixed:{}, running:false };
+  const statusOf = ct => document.querySelector('#'+ct+' .status');
+
+  function setStatus(ct, s){
+    const el = statusOf(ct); if(!el) return;
+    const txt = {none:'não executado', exec:'executando', ok:'passou', fail:'falhou', fix:'corrigido', skip:'pendente'}[s];
+    el.dataset.s = s; el.textContent = txt;
+  }
+
+  function stamp(ct, fixed){
+    const main = document.querySelector('#'+ct+' .ct-main');
+    let st = main.querySelector('.stamp');
+    if(!st){ st = document.createElement('div'); st.className='stamp'; st.setAttribute('aria-hidden','true'); main.appendChild(st); }
+    st.textContent = fixed ? 'CORRIGIDO' : 'FALHOU';
+    st.classList.toggle('fix', !!fixed);
+    st.classList.remove('pop'); void st.offsetWidth; if(!fixed) st.classList.add('pop');
+  }
+
+  function renderReport(key, by, focus){
+    const b = BUGS[key];
+    const aside = document.querySelector('#'+b.ct+' .margin');
+    const el = document.createElement('article');
+    el.className = 'report new'; el.id = 'rep-'+key; el.tabIndex = -1;
+    el.setAttribute('aria-label', b.id+': '+b.title);
+    el.innerHTML =
+      '<header><span class="rid">'+b.id+'</span><span class="sev">severidade: '+b.sev+'</span></header>'+
+      '<h3>'+b.title+'</h3><dl>'+
+      '<dt>Passos</dt><dd><ol>'+b.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol></dd>'+
+      '<dt>Resultado atual</dt><dd>'+b.actual+'</dd>'+
+      '<dt>Resultado esperado</dt><dd>'+b.expected+'</dd>'+
+      '<dt>Severidade</dt><dd>'+b.sev[0].toUpperCase()+b.sev.slice(1)+': '+b.why+'.</dd></dl>'+
+      (key==='contact' ? '<a class="go" href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">Abrir LinkedIn por aqui</a>' : '')+
+      '<p class="note">'+(by==='você' ? 'achado por você' : 'achado pelo regressivo')+'</p>';
+    aside.appendChild(el);
+    if(focus){ el.focus({preventScroll:true}); el.scrollIntoView({block:'nearest', behavior: reduced?'auto':'smooth'}); }
+  }
+
+  function found(key, by, focus){
+    if(state.found[key] || state.fixed[key]) return;
+    state.found[key] = by;
+    renderReport(key, by, focus);
+    stamp(BUGS[key].ct, false);
+    setStatus(BUGS[key].ct, 'fail');
+    updateCount();
+  }
+
+  function updateCount(){
+    const mine = Object.values(state.found).filter(v=>v==='você').length;
+    const auto = Object.values(state.found).filter(v=>v==='regressivo').length;
+    const fixed = Object.keys(state.fixed).length;
+    let t = fixed === 3 ? 'Corrigidos: 3/3' : 'Encontrados: '+mine+'/3';
+    if(auto && fixed < 3) t += ' · regressivo achou '+auto;
+    $('#count').textContent = t;
+    if((mine === 3 || fixed === 3) && !state.doneShown){ state.doneShown = true; $('#done').hidden = false; }
+  }
+  $('#closeDone').addEventListener('click', ()=>{ $('#done').hidden = true; });
+
+  /* BUG-02: erro de digitação */
+  $('#typo').addEventListener('click', ()=> found('typo','você',true));
+
+  /* BUG-03: etapa desalinhada */
+  $('#visual').addEventListener('click', ()=> found('visual','você',true));
+
+  /* BUG-01: botão ignora o primeiro clique */
+  let liClicks = 0;
+  $('#li').addEventListener('click', e=>{
+    if(state.fixed.contact) return;
+    liClicks++;
+    if(liClicks === 1){ e.preventDefault(); return; }
+    if(!state.found.contact){ e.preventDefault(); found('contact','você',true); }
+  });
+
+  /* regressivo */
+  const STEPS = [
+    {ct:'ct0', t:'CT-00 cabeçalho: nome, cargo e links presentes', ms:380},
+    {ct:'ct0', t:'CT-00 anexo: foto', ms:260, skip:'foto'},
+    {ct:'ct1', t:'CT-01 experiência: datas em ordem', ms:420},
+    {ct:'ct1', t:'CT-01 experiência: ortografia', ms:640, bug:'typo'},
+    {ct:'ct2', t:'CT-02 projeto: link do repositório válido', ms:360},
+    {ct:'ct2', t:'CT-02 projeto: layout do fluxo em 360px', ms:720, bug:'visual'},
+    {ct:'ct2', t:'CT-02 anexo: print do Grafana', ms:240, skip:'grafana'},
+    {ct:'ct3', t:'CT-03 anexo: GIF da suíte', ms:240, skip:'gif'},
+    {ct:'ct4', t:'CT-04 formação: itens listados', ms:340},
+    {ct:'ct5', t:'CT-05 contato: LinkedIn responde no 1º clique', ms:680, bug:'contact'},
+    {ct:'ct5', t:'CT-05 contato: GitHub responde', ms:300}
+  ];
+  const sleep = ms => new Promise(r=>setTimeout(r, ms));
+  const lines = $('#lines'), foot = $('#logfoot');
+
+  function attachmentMissing(kind){
+    const map = {foto:'.photo img', grafana:'.shot:not(.gif) img', gif:'.shot.gif img'};
+    const img = document.querySelector(map[kind]);
+    return !img || img.hidden || !img.complete || img.naturalWidth === 0;
+  }
+
+  function line(cls, text, time){
+    const li = document.createElement('li'); li.className = cls;
+    const mark = {ok:'✓', fail:'✗', skip:'–', run:'›'}[cls] || '';
+    li.innerHTML = cls==='info' ? '<span>'+text+'</span>' : '<span class="m">'+mark+'</span><span>'+text+'</span><span class="t">'+(time||'')+'</span>';
+    lines.appendChild(li); lines.scrollTop = lines.scrollHeight; return li;
+  }
+  function update(li, cls, text, time){
+    li.className = cls;
+    li.querySelector('.m').textContent = {ok:'✓', fail:'✗', skip:'–'}[cls];
+    li.children[1].textContent = text; li.querySelector('.t').textContent = time;
+  }
+
+  async function run(){
+    if(state.running) return;
+    state.running = true; $('#run').disabled = true;
+    $('#log').hidden = false; lines.innerHTML = ''; foot.innerHTML = '';
+    const start = new Date();
+    line('info', 'iniciado '+start.toLocaleTimeString('pt-BR')+' · '+STEPS.length+' passos');
+    const results = {};
+    let prev = null, pass = 0, fail = 0, skip = 0;
+    for(const s of STEPS){
+      if(prev !== s.ct){
+        if(prev){ document.getElementById(prev).classList.remove('testing'); if(prev!=='ct0') setStatus(prev, results[prev] || 'ok'); }
+        const sec = document.getElementById(s.ct);
+        sec.classList.add('testing');
+        if(s.ct!=='ct0') setStatus(s.ct, 'exec');
+        sec.scrollIntoView({block:'start', behavior: reduced?'auto':'smooth'});
+        prev = s.ct;
+      }
+      const li = line('run', s.t);
+      await sleep(s.ms);
+      const secs = (s.ms/1000).toFixed(2)+'s';
+      if(s.skip){
+        if(attachmentMissing(s.skip)){ update(li,'skip', s.t+' · pendente', secs); skip++; if(!results[s.ct]) results[s.ct] = 'skip'; }
+        else { update(li,'ok', s.t, secs); pass++; }
+      } else if(s.bug && !state.fixed[s.bug]){
+        update(li,'fail', s.t+' · '+BUGS[s.bug].id, secs); fail++;
+        results[s.ct] = 'fail';
+        found(s.bug, 'regressivo', false);
+      } else if(s.bug){
+        update(li,'ok', s.t, secs); pass++;
+        results[s.ct] = results[s.ct] || 'fix';
+      } else { update(li,'ok', s.t, secs); pass++; }
+    }
+    document.getElementById(prev).classList.remove('testing');
+    setStatus(prev, results[prev] || 'ok');
+    line('info', pass+' passaram · '+fail+' falharam · '+skip+' pendentes');
+
+    const mine = Object.entries(state.found).filter(([k,v])=>v==='você' && !state.fixed[k]).map(([k])=>BUGS[k].id);
+    const missed = Object.entries(state.found).filter(([k,v])=>v==='regressivo' && !state.fixed[k]).map(([k])=>BUGS[k].id);
+    if(fail){
+      const p = document.createElement('p'); p.style.margin = '0';
+      p.textContent = (mine.length ? 'Você achou: '+mine.join(', ')+'. ' : '') + (missed.length ? 'Você não achou: '+missed.join(', ')+'.' : 'Você achou todos.');
+      const b = document.createElement('button'); b.className = 'btn'; b.type = 'button'; b.textContent = 'Aplicar correções';
+      b.addEventListener('click', ()=>{ b.disabled = true; applyFixes(); });
+      foot.append(p, b); b.focus({preventScroll:true});
+    } else {
+      foot.textContent = 'Tudo verde.';
+    }
+    state.running = false; $('#run').disabled = false;
+  }
+
+  async function applyFixes(){
+    state.running = true; $('#run').disabled = true;
+    line('info', 'aplicando correções');
+    for(const key of ['typo','visual','contact']){
+      if(state.fixed[key]) continue;
+      const b = BUGS[key], sec = document.getElementById(b.ct);
+      sec.classList.add('testing');
+      sec.scrollIntoView({block:'start', behavior: reduced?'auto':'smooth'});
+      await sleep(reduced ? 150 : 550);
+      if(key==='typo'){ const w = $('#typo'); w.textContent = 'Integrei'; w.setAttribute('aria-label','Integrei'); w.classList.add('fixed'); }
+      if(key==='visual'){ document.body.classList.add('fixed-visual'); }
+      state.fixed[key] = true;
+      if(!state.found[key]) found(key,'regressivo',false);
+      const rep = document.getElementById('rep-'+key);
+      if(rep){ rep.classList.add('fix'); rep.querySelector('.note').textContent = 'corrigido · reteste passou'; }
+      stamp(b.ct, true); setStatus(b.ct, 'fix');
+      await sleep(reduced ? 100 : 450);
+      sec.classList.remove('testing');
+      line('ok', b.id+' corrigido · reteste passou', '');
+    }
+    foot.textContent = 'Corrigido e retestado. 3/3.';
+    updateCount();
+    state.running = false; $('#run').disabled = false;
+    $('#done').hidden = false;
+  }
+
+  $('#run').addEventListener('click', run);
+  $('#closeLog').addEventListener('click', ()=>{ $('#log').hidden = true; $('#run').focus(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('#log').hidden && !state.running){ $('#log').hidden = true; } });
+})();
+</script>
 </body>
 </html>

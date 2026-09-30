@@ -157,6 +157,9 @@ figcaption{font-size:13.5px;color:var(--muted);margin-top:8px}
 .contact .btn{font-size:15.5px;padding:13px 22px}
 .addr{font:14px var(--mono);color:var(--muted);margin:0}
 .addr span{user-select:all;color:var(--ink)}
+.mailline{margin-top:6px}
+.mailline a{font-weight:500}
+.addr .copied{user-select:none;color:var(--ok);margin-left:6px}
 
 /* bug report */
 .margin{display:grid;gap:14px}
@@ -367,8 +370,10 @@ footer.page{text-align:center;font:12px var(--mono);color:var(--muted);padding-b
       <div class="contact">
         <a class="btn" id="li" href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">Abrir LinkedIn</a>
         <a class="btn line" href="https://github.com/BrenoSantos07" target="_blank" rel="noopener">Abrir GitHub</a>
+        <button class="btn line" type="button" id="mail">Copiar e-mail</button>
       </div>
       <p class="addr">linkedin.com/in/<span>brenogs</span> · github.com/<span>BrenoSantos07</span></p>
+      <p class="addr mailline">E-mail: <a id="mailtxt" href="#contato">brenogabriel016 [arroba] outlook.com</a> <span class="copied" id="copied" role="status"></span></p>
     </div>
     <aside class="margin" aria-label="Bug reports do CT-05"></aside>
   </section>
@@ -491,7 +496,8 @@ footer.page{text-align:center;font:12px var(--mono);color:var(--muted);padding-b
     {ct:'ct3', t:'CT-03 anexo: GIF da suíte', ms:240, skip:'gif'},
     {ct:'ct4', t:'CT-04 formação: itens listados', ms:340},
     {ct:'ct5', t:'CT-05 contato: LinkedIn responde no 1º clique', ms:680, bug:'contact'},
-    {ct:'ct5', t:'CT-05 contato: GitHub responde', ms:300}
+    {ct:'ct5', t:'CT-05 contato: GitHub responde', ms:300},
+    {ct:'ct5', t:'CT-05 contato: e-mail visível e copiável', ms:280}
   ];
   const sleep = ms => new Promise(r=>setTimeout(r, ms));
   const lines = $('#lines'), foot = $('#logfoot');
@@ -589,6 +595,16 @@ footer.page{text-align:center;font:12px var(--mono);color:var(--muted);padding-b
     state.running = false; $('#run').disabled = false;
     $('#done').hidden = false;
   }
+
+  /* e-mail montado no navegador, para robôs simples não lerem do HTML */
+  const mail = ['brenogabriel016', 'outlook.com'].join('@');
+  const mailTxt = $('#mailtxt');
+  mailTxt.textContent = mail; mailTxt.href = 'mailto:' + mail;
+  $('#mail').addEventListener('click', ()=>{
+    const ok = ()=>{ $('#copied').textContent = 'copiado'; setTimeout(()=>{ $('#copied').textContent = ''; }, 2500); };
+    const fallback = ()=>{ const r = document.createRange(); r.selectNodeContents(mailTxt); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $('#copied').textContent = 'selecionado, use Ctrl+C'; };
+    try { navigator.clipboard.writeText(mail).then(ok, fallback); } catch(e){ fallback(); }
+  });
 
   $('#run').addEventListener('click', run);
   $('#closeLog').addEventListener('click', ()=>{ $('#log').hidden = true; $('#run').focus(); });

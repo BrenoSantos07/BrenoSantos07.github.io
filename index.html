@@ -86,7 +86,7 @@ h1,h2,h3,h4{margin:0;line-height:1.2;text-wrap:balance}
 .ct{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:24px;align-items:start;scroll-margin-top:90px}
 .ct-main{padding:0 28px 26px;transition:background-color .3s, box-shadow .3s}
 .ct.testing .ct-main{box-shadow:0 0 0 3px var(--pen);background:var(--pen-soft)}
-.ct-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:14px 0;border-bottom:2px solid var(--ink);margin-bottom:20px}
+.ct-head{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:16px;padding:14px 0;border-bottom:2px solid var(--ink);margin-bottom:20px}
 .ct-head .id{font:600 13px var(--mono);color:var(--pen);border:1.5px solid var(--pen);padding:3px 7px;border-radius:3px}
 .ct-head h2{font-size:clamp(22px,2.6vw,27px);font-weight:700}
 .status{font:500 12px var(--mono);padding:4px 8px;border-radius:3px;border:1px solid var(--rule-strong);color:var(--muted);white-space:nowrap}
@@ -97,7 +97,7 @@ h1,h2,h3,h4{margin:0;line-height:1.2;text-wrap:balance}
 .status[data-s="fix"]{color:var(--ok);border-color:var(--ok);background:var(--ok-soft)}
 .ct-sub{margin:0 0 18px;color:var(--muted);font-size:15px}
 
-.stamp{position:absolute;right:22px;top:58px;font:700 34px/1 var(--hand);color:var(--stamp);border:3px solid var(--stamp);padding:4px 12px 2px;border-radius:6px;transform:rotate(-7deg);pointer-events:none;opacity:.88;background:color-mix(in srgb,var(--sheet) 70%,transparent)}
+.stamp{font:700 28px/1 var(--hand);margin-block:-8px;white-space:nowrap;color:var(--stamp);border:3px solid var(--stamp);padding:4px 12px 2px;border-radius:6px;transform:rotate(-7deg);pointer-events:none;opacity:.88;background:color-mix(in srgb,var(--sheet) 70%,transparent)}
 .stamp.fix{color:var(--ok);border-color:var(--ok);transform:rotate(5deg)}
 .stamp.pop{animation:stamp .35s ease-out}
 @keyframes stamp{from{transform:rotate(-7deg) scale(1.6);opacity:0}to{transform:rotate(-7deg) scale(1);opacity:.88}}
@@ -215,7 +215,8 @@ footer.page{text-align:center;font:12px var(--mono);color:var(--muted);padding-b
   .obj{grid-template-columns:1fr;gap:4px}
   .ct-head{grid-template-columns:auto 1fr;gap:8px 12px}
   .ct-head .status{grid-column:1/-1;justify-self:start}
-  .stamp{top:auto;bottom:14px;right:14px;font-size:28px}
+  .ct-head .status{grid-row:2}
+  .ct-head .stamp{grid-row:2;grid-column:1/-1;justify-self:end;align-self:center;font-size:22px;margin-block:4px 0}
   .pipe{grid-template-columns:1fr;gap:26px}
   .pipe li:not(:last-child)::after{content:"↓";right:auto;left:18px;top:auto;bottom:-24px;transform:none}
   .pipe .b3,.pipe:hover .b3,.pipe:focus-within .b3{transform:translate(12px,-38px)}
@@ -418,7 +419,7 @@ footer.page{text-align:center;font:12px var(--mono);color:var(--muted);padding-b
   function stamp(ct, fixed){
     const main = document.querySelector('#'+ct+' .ct-main');
     let st = main.querySelector('.stamp');
-    if(!st){ st = document.createElement('div'); st.className='stamp'; st.setAttribute('aria-hidden','true'); main.appendChild(st); }
+    if(!st){ st = document.createElement('div'); st.className='stamp'; st.setAttribute('aria-hidden','true'); main.querySelector('.ct-head').insertBefore(st, main.querySelector('.ct-head .status')); }
     st.textContent = fixed ? 'CORRIGIDO' : 'FALHOU';
     st.classList.toggle('fix', !!fixed);
     st.classList.remove('pop'); void st.offsetWidth; if(!fixed) st.classList.add('pop');

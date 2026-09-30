@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ficha de Teste · Breno Gabriel</title>
 <meta name="description" content="Portfólio de Breno Gabriel, Analista de QA Júnior. Esta página tem 3 bugs plantados de propósito.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Breno Gabriel · Analista de QA">
+<meta property="og:description" content="Portfólio em forma de ficha de teste. Esta página tem 3 bugs plantados: consegue achar?">
+<meta property="og:url" content="https://brenogs.vercel.app/">
+<meta property="og:image" content="https://brenogs.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Capa da ficha de teste do portfólio de Breno Gabriel">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231F3A93'/%3E%3Cpath d='M17 33l10 10 20-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
@@ -366,11 +377,12 @@ footer.page{text-align:center;font:12px var(--mono);color:var(--muted);padding-b
   <section class="ct" id="ct5" data-ct="CT-05" aria-labelledby="h-ct5">
     <div class="ct-main sheet">
       <div class="ct-head"><span class="id">CT-05</span><h2 id="h-ct5">Contato</h2><span class="status" data-s="none">não executado</span></div>
-      <p class="ct-sub">O LinkedIn é o jeito mais rápido de falar comigo.</p>
+      <p class="ct-sub">Pode me chamar pelo LinkedIn ou por e-mail.</p>
       <div class="contact">
         <a class="btn" id="li" href="https://www.linkedin.com/in/brenogs/" target="_blank" rel="noopener">Abrir LinkedIn</a>
         <a class="btn line" href="https://github.com/BrenoSantos07" target="_blank" rel="noopener">Abrir GitHub</a>
         <button class="btn line" type="button" id="mail">Copiar e-mail</button>
+        <a class="btn line" href="curriculo.pdf" download="Curriculo-Breno-Gabriel-QA.pdf" type="application/pdf">Baixar currículo (PDF)</a>
       </div>
       <p class="addr">linkedin.com/in/<span>brenogs</span> · github.com/<span>BrenoSantos07</span></p>
       <p class="addr mailline">E-mail: <a id="mailtxt" href="#contato">brenogabriel016 [arroba] outlook.com</a> <span class="copied" id="copied" role="status"></span></p>
@@ -481,7 +493,7 @@ footer.page{text-align:center;font:12px var(--mono);color:var(--muted);padding-b
     if(state.fixed.contact) return;
     liClicks++;
     if(liClicks === 1){ e.preventDefault(); return; }
-    if(!state.found.contact){ e.preventDefault(); found('contact','você',true); }
+    if(!state.found.contact){ found('contact','você',true); }
   });
 
   /* regressivo */
